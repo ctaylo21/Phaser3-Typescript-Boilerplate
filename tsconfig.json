@@ -16,6 +16,7 @@
     "lib": ["dom", "es2017", "scripthost"], // you will need to include polyfills for es2017 manually
     "target": "es5", // "es2015" for ES6+ engines
     "module": "es2015", // "es2015" for tree-shaking
+    "importsNotUsedAsValues": "preserve", // https://github.com/TypeStrong/fork-ts-checker-webpack-plugin#type-only-modules-watching
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,

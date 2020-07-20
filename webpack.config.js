@@ -7,23 +7,22 @@ const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-web
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
 
 module.exports = (env, argv) => ({
   devtool: argv.mode === 'production' ? 'source-map' : 'inline-source-map',
   module: {
     rules: [
       {
-        exclude: /node_modules/,
-        test: /\.tsx?$/,
+        include: path.resolve(__dirname, 'src'),
+        test: /\.ts?$/,
         loader: 'ts-loader',
         options: {
-          experimentalWatchApi: true,
+          experimentalFileCaching: true,
           transpileOnly: true,
         },
       },
       {
+        include: path.resolve(__dirname, 'src'),
         test: /\.(s*)css$/,
         use: [
           argv.mode === 'production'
@@ -34,10 +33,12 @@ module.exports = (env, argv) => ({
         ],
       },
       {
+        include: path.resolve(__dirname, 'src'),
         test: [/\.vert$/, /\.frag$/],
         use: 'raw-loader',
       },
       {
+        include: path.resolve(__dirname, 'src'),
         test: /\.(gif|png|jpe?g|svg|xml)$/i,
         use: [
           'file-loader',
@@ -59,13 +60,11 @@ module.exports = (env, argv) => ({
   },
   plugins: [
     new CleanWebpackPlugin({}),
-    new ForkTsCheckerWebpackPlugin({
-      async: true,
-      useTypescriptIncrementalApi: false,
-      measureCompilationTime: true,
-      memoryLimit: 4096,
+    new ForkTsCheckerWebpackPlugin(),
+    new ForkTsCheckerNotifierWebpackPlugin({
+      excludeWarnings: true,
+      skipFirstNotification: true,
     }),
-    new ForkTsCheckerNotifierWebpackPlugin({ excludeWarnings: true }),
     new HtmlWebpackPlugin({
       inject: 'body',
       template: path.resolve(__dirname, './src/html/index.html'),
@@ -76,7 +75,6 @@ module.exports = (env, argv) => ({
       chunkFilename:
         argv.mode === 'production' ? '[id].[hash].css' : '[id].css',
     }),
-    new BundleAnalyzerPlugin(),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
