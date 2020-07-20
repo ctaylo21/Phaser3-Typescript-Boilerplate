@@ -1,0 +1,60 @@
+{
+  "name": "phaser3-typescript-boilerplate",
+  "version": "1.0.0",
+  "description": "Typescript & Phaser3 boilerplate with Webpack, Eslint, and Prettier",
+  "author": "Caleb Taylor <caleb89taylor@gmail.com>",
+  "license": "MIT",
+  "main": "dist/main.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint"
+    ],
+    "*.{js,jsx,ts,tsx,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "start": "webpack-dev-server --open --mode=development",
+    "build": "webpack --mode=production",
+    "cm": "git-cz",
+    "lint": "eslint . --ext .js,.ts,.tsx"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.5.3",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "file-loader": "^6.0.0",
+    "fork-ts-checker-notifier-webpack-plugin": "^2.0.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.6",
+    "html-webpack-plugin": "^4.3.0",
+    "husky": "^4.2.5",
+    "image-webpack-loader": "^6.0.0",
+    "lint-staged": "^10.2.7",
+    "mini-css-extract-plugin": "^0.9.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "prettier": "^2.0.5",
+    "terser-webpack-plugin": "^3.0.2",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@types/mini-css-extract-plugin": "^0.9.1",
+    "@types/optimize-css-assets-webpack-plugin": "^5.0.1",
+    "@types/terser-webpack-plugin": "^3.0.0",
+    "phaser": "^3.23.0",
+    "webpack-bundle-analyzer": "^3.8.0"
+  }
+}
